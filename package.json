@@ -1,0 +1,24 @@
+{
+  "name": "spark-dev",
+  "version": "1.0.0",
+  "description": "Cisco Spark Scratchpad Development",
+  "main": "sparkdev.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drkchiloll/spark-dev.git"
+  },
+  "author": "Sam Womack",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/drkchiloll/spark-dev/issues"
+  },
+  "homepage": "https://github.com/drkchiloll/spark-dev#readme",
+  "dependencies": {
+    "bluebird": "^3.1.1",
+    "csco-spark": "^1.0.8",
+    "moment": "^2.10.6"
+  }
+}
