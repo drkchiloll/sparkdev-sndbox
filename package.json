@@ -18,7 +18,7 @@
   "homepage": "https://github.com/drkchiloll/spark-dev#readme",
   "dependencies": {
     "bluebird": "^3.1.1",
-    "csco-spark": "^1.0.9",
+    "csco-spark": "^1.0.10",
     "moment": "^2.10.6"
   }
 }
