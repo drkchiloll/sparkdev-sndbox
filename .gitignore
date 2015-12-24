@@ -1,4 +1,5 @@
 .DS_Store
 node_modules
 config.js
-!build/index.html
+build/bundle.*
+build/styles.*
