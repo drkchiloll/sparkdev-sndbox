@@ -1,10 +1,10 @@
 import React from 'react';
-import Component from './Component';
+import AuthorizeApp from './AuthorizeApp';
 
 export default class App extends React.Component {
   render() {
     return (
-      <Component />
+      <AuthorizeApp />
     );
   }
 }
