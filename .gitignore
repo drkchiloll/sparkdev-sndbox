@@ -4,3 +4,4 @@ config.js
 build/bundle.*
 build/styles.*
 build/app.*
+build/index.html
