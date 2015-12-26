@@ -28,27 +28,43 @@ var common = {
     loaders : [{
       test : /\.jsx?$/,
       loaders : ['babel'],
+      exclude : /(node_modules|server.js)/,
+      include : APP_PATH
+    }, {
+      test : /\.css$/,
+      loader : ExtractTextPlugin.extract('style', 'css'),
       include : APP_PATH
     }]
-  },
-  plugins : [
-    new HtmlwebpackPlugin({ title : 'WebPack Starter'})
-  ]
+  }
 };
 
 if(TARGET === 'build') {
   module.exports = merge(common, {
-    devtool : 'source-map',
-    module : {
-      loaders: [{
-        test : /\.css$/,
-        loader : ExtractTextPlugin.extract('style', 'css'),
-        include : APP_PATH
-      }]
+    entry : {
+      app : APP_PATH
     },
+    output : {
+      path : BUILD_PATH,
+      filename : '[name].[chunkhash].js?'
+    },
+    devtool : 'source-map',
     plugins : [
       new Clean(['build']),
       new ExtractTextPlugin('styles.css'),
+      new HtmlwebpackPlugin({
+        title : 'WebPack Starter',
+        inject : true,
+        template : APP_PATH + '/index.html'
+      }),
+      new webpack.DefinePlugin({
+        'process.env' : {
+          // This affects react LIB Size
+          'NODE_ENV' : JSON.stringify('production')
+        }
+      }),
+      new webpack.optimize.UglifyJsPlugin({
+        compress : { warnings : false }
+      })
     ]
   });
 }
