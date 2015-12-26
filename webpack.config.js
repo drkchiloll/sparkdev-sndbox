@@ -35,7 +35,10 @@ var common = {
       loader : ExtractTextPlugin.extract('style', 'css'),
       include : APP_PATH
     }]
-  }
+  },
+  plugins: [
+    new ExtractTextPlugin('styles.css'),
+  ]
 };
 
 if(TARGET === 'build') {
@@ -50,7 +53,6 @@ if(TARGET === 'build') {
     devtool : 'source-map',
     plugins : [
       new Clean(['build']),
-      new ExtractTextPlugin('styles.css'),
       new HtmlwebpackPlugin({
         title : 'WebPack Starter',
         inject : true,
