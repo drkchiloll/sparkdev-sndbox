@@ -9,8 +9,12 @@ app
   .use(bodyParser.urlencoded({extended: true}))
   .use(express.static('./build'))
 
+app.get('/auth/:code', function(req, res) {
+  console.log(req.params.code);
+})
+
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, 'build/index.html'));
 });
 
-app.listen(80);
+app.listen(8080);
