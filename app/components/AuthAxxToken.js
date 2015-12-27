@@ -3,10 +3,8 @@ import React from 'react';
 export default class AuthAxxToken extends React.Component {
   componentWillMount() {
     var code = this.props.location.query.code;
-    fetch('/axxtoken', {
-      method: 'POST',
-      credentials: 'same-origin',
-      body: JSON.stringify({code: code})
+    fetch(`/axxtoken/${code}`, {
+      credentials: 'same-origin'
     }).then(function(resp) {
       return resp.json()
     }).then(function(data) {
