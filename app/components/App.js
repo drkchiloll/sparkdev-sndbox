@@ -4,7 +4,9 @@ import AuthorizeApp from './AuthorizeApp';
 export default class App extends React.Component {
   render() {
     return (
-      <AuthorizeApp />
+      <div className='container'>
+        {this.props.children}
+      </div>
     );
   }
 }
