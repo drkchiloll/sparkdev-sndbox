@@ -2,6 +2,9 @@ var express = require('express'),
     path = require('path'),
     bodyParser = require('body-parser');
 
+// Controller
+var cntrler = require('./lib/tokenCntrler');
+
 var app = express();
 
 app
@@ -16,5 +19,7 @@ app.get('/auth/:code', function(req, res) {
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, 'build/index.html'));
 });
+
+app.post('/axxtoken', cntrler.getAccessToken);
 
 app.listen(8080);
