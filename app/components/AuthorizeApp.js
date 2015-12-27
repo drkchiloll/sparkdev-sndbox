@@ -9,7 +9,7 @@ export default class AuthorizeApp extends React.Component {
       scope: encodeURIComponent('spark:messages_read'),
       state: encodeURIComponent('sparkadmin@wwt.com'),
       client_id: encodeURIComponent(config.id),
-      redirect_uri: encodeURIComponent('https://sparkint.proxy.wwtatc.com')
+      redirect_uri: encodeURIComponent('http://45.55.244.195:8080/sparkaxxs')
     };
     var authKeys = Object.keys(auth);
     return `https://api.ciscospark.com/v1/authorize?${authKeys[0]}`+
