@@ -7,6 +7,7 @@ import RouterHistory from 'history/lib/createBrowserHistory';
 
 // Custom App Components
 import App from './components/App';
+import AuthorizeApp from './components/AuthorizeApp';
 import AuthAxxToken from './components/AuthAxxToken';
 import RoomSelection from './components/RoomSelection';
 
