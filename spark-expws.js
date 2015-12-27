@@ -16,10 +16,10 @@ app.get('/auth/:code', function(req, res) {
   console.log(req.params.code);
 })
 
+app.get('/axxtoken/:code', cntrler.getAccessToken);
+
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, 'build/index.html'));
 });
-
-app.post('/axxtoken', cntrler.getAccessToken);
 
 app.listen(8080);
