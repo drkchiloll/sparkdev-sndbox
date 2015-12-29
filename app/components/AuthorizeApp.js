@@ -4,9 +4,9 @@ import config from '../../config';
 export default class AuthorizeApp extends React.Component {
   authenticate() {
     fetch('/authorized').then(function(resp) {
-      return resp.text();
+      return resp.json();
     }).then(function(authorizeUri) {
-      return authorizeUri;
+      window.location = authorizeUri.uri;
     })
     // var auth = {};
     // auth = {
