@@ -24,11 +24,11 @@ export default class AuthorizeApp extends React.Component {
   }
   render() {
     return (
-      <a
+      <button
         className='btn btn-lg btn-success'
-        href={this.authenticate()}>
+        onClick={this.authenticate}>
         Authorize App
-      </a>
+      </button>
     );
   }
 }
