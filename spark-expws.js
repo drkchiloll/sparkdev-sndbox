@@ -13,8 +13,8 @@ app
   .use(express.static('./build'))
 
 app.get('/authorized', cntrler.getAuthorized)
-
 app.get('/axxtoken/:code', cntrler.getAccessToken);
+app.get('/sparkrooms/:token', cntrler.getSparkRooms);
 
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, 'build/index.html'));
