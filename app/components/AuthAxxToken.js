@@ -1,48 +1,51 @@
 import React from 'react';
 
 export default class AuthAxxToken extends React.Component {
-  getInitialState() {
-    return {
-      rooms: null
-    };
+  constructor(props) {
+    super(props);
+    this.state = { rooms: null };
   }
   componentWillMount() {
     var code = this.props.location.query.code;
     fetch(`/axxtoken/${code}`, {
       credentials: 'same-origin'
-    }).then(function(resp) {
+    }).then((resp) => {
       return resp.json()
-    }).then(function(data) {
-      console.log(data);
+    }).then((data) => {
       var token = data.access_token;
       fetch(`/sparkrooms/${token}`, {
         credentials: 'same-origin'
-      }).then(function(res) {
+      }).then((res) => {
         return res.json();
-      }).then(function(rooms) {
-        this.setState(rooms);
-      }.bind(this))
+      }).then((rooms) => {
+        this.setState({rooms:rooms});
+      });
     })
   }
   render() {
-    var rooms = this.state.rooms;
-    return (
-      {rooms ? this._renderRooms(rooms) :
-        <div> Waiting for Rooms To Load </div>
-      }
-    );
-  }
-  _renderRooms(rooms) {
     return (
       <div>
-        <div> Select a Room </div>
+      {this.state.rooms ? this._renderRooms() :
+        <div> Waiting for Rooms To Load </div>
+      }
+      </div>
+    );
+  }
+  _renderRooms() {
+    var rooms = this.state.rooms;
+    return (
+      <div>
+	<div className='col-sm-6'>
+        <h4> Select a Room </h4>
         <select className='form-control'>
-          {return rooms.map((room) => {
+          {rooms.map((room) => {
             return (
-              <option key={room.id}>{room.title}</option>
+              <option key={room.id} value={room.title}>{room.title}</option>
             );
           })}
         </select>
+	</div>
+      </div>
     );
   }
 }
