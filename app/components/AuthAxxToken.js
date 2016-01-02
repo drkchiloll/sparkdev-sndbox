@@ -35,16 +35,19 @@ export default class AuthAxxToken extends React.Component {
     var rooms = this.state.rooms;
     return (
       <div>
-	<div className='col-sm-6'>
-        <h4> Select a Room </h4>
-        <select className='form-control'>
-          {rooms.map((room) => {
-            return (
-              <option key={room.id} value={room.title}>{room.title}</option>
-            );
-          })}
-        </select>
-	</div>
+      	<div className='col-sm-6'>
+          <h4> Select a Room </h4>
+          <div className='form-inline'>
+            <select className='form-control'>
+              {rooms.map((room) => {
+                return (
+                  <option key={room.id} value={room.title}>{room.title}</option>
+                );
+              })}
+            </select>
+            <button className='btn btn-sm btn-primary'>Get Files</button>
+          </div>
+      	</div>
       </div>
     );
   }
