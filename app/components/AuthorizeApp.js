@@ -11,19 +11,19 @@ export default class AuthorizeApp extends React.Component {
   render() {
     return (
       <div>
-        <p>
+        <p style={{fontSize:'18'}}>
           This application pulls the rooms you have memberships in and
           downloads the files that have been uploaded into those rooms on
           your behalf.
         </p>
-        <p>
+        <p style={{fontSize:'18'}}>
           If you would like this application to perform this task on your
           behalf please click the <strong>Authorize App</strong> button.
         </p>
         <button
           style={{
             width: '200px',
-            length: '200px'
+            height: '75px'
           }}
           className='btn btn-lg btn-success'
           onClick={this.authenticate}>
