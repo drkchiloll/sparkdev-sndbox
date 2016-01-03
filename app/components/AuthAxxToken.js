@@ -52,11 +52,11 @@ export default class AuthAxxToken extends React.Component {
                 );
               })}
             </select>
-            <button 
-	      className='btn btn-md btn-primary'
-	      onClick={this.getFiles}>
-	      Get Files
-	    </button>
+            <button
+	           className='btn btn-md btn-primary'
+	           onClick={this.getFiles}>
+	           Get Files
+	          </button>
           </div>
       	</div>
       </div>
@@ -72,7 +72,7 @@ export default class AuthAxxToken extends React.Component {
   getFiles() {
     var roomId;
     if(!this.state.selectedRoom) {
-      roomId = this.state.rooms[0].id; 
+      roomId = this.state.rooms[0].id;
     } else {
       roomId = this.state.selectedRoom.id;
     }
