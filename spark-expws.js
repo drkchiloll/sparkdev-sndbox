@@ -15,6 +15,7 @@ app
 app.get('/authorized', cntrler.getAuthorized)
 app.get('/axxtoken/:code', cntrler.getAccessToken);
 app.get('/sparkrooms/:token', cntrler.getSparkRooms);
+app.get('/dlfiles/:roomId', cntrler.getFiles);
 
 app.get('*', function(req, res) {
   res.sendFile(path.join(__dirname, 'build/index.html'));
