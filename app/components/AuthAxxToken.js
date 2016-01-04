@@ -32,16 +32,23 @@ export default class AuthAxxToken extends React.Component {
   render() {
     return (
       <div>
-      {this.state.rooms ? this._renderRooms() :
-        <div> Waiting for Rooms To Load </div>
-      }
+        {
+          this.state.rooms ?
+            this._renderRooms() :
+            <div> Waiting for Rooms To Load </div>
+        }
+        {
+          this.state.files ?
+            this._renderFiles() :
+            <div></div>
+        }
       </div>
     );
   }
   _renderRooms() {
     var rooms = this.state.rooms;
     return (
-      <div>
+      <div className='row'>
       	<div className='col-sm-6'>
           <h4> Select a Room </h4>
           <div className='form-inline'>
@@ -59,6 +66,29 @@ export default class AuthAxxToken extends React.Component {
 	          </button>
           </div>
       	</div>
+      </div>
+    );
+  }
+  _renderFiles() {
+    var files = this.state.files;
+    return (
+      <div className='row'>
+        <table className='table table-hover'>
+          <tr>
+            <th>File Type</th>
+            <th>File Name</th>
+            <th>File Size</th>
+          </tr>
+          <tr>
+            {files.map((file) => {
+              return (
+                <td>{file.fileName.split(.)[1].toUpperCase()}</td>
+                <td>{file.fileName}</td>
+                <td>{file.blob.length}</td>
+              );
+            })}
+          </tr>
+        </table>
       </div>
     );
   }
