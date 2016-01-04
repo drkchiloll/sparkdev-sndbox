@@ -73,22 +73,24 @@ export default class AuthAxxToken extends React.Component {
     var files = this.state.files;
     return (
       <div className='row'>
-        <table className='table table-hover'>
-          <tr>
-            <th>File Type</th>
-            <th>File Name</th>
-            <th>File Size</th>
-          </tr>
-          <tr>
-            {files.map((file) => {
-              return (
-                <td>{file.fileName.split(.)[1].toUpperCase()}</td>
-                <td>{file.fileName}</td>
-                <td>{file.blob.length}</td>
-              );
-            })}
-          </tr>
-        </table>
+	<div className='col-sm-10'>
+	  <table className='table table-hover table-condensed'>
+	    <tr>
+	      <th>File Type</th>
+	      <th>File Name</th>
+	      <th>File Size</th>
+	    </tr>
+	    {files.map((file) => {
+	      return (
+		<tr>
+		  <td>{file.fileName.split('.')[1].toUpperCase()}</td>
+		  <td>{file.fileName}</td>
+		  <td>{file.blob.length}</td>
+		</tr>
+	      );
+	    })}
+	  </table>
+	</div>
       </div>
     );
   }
