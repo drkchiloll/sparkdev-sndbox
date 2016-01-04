@@ -108,7 +108,10 @@ export default class AuthAxxToken extends React.Component {
     }
     fetch(`/dlfiles/${roomId}`, {
       credentials: 'same-origin'
+    }).then((res) => {
+      return res.json();
     }).then((files) => {
+      console.log(files);
       this.setState({files: files});
     });
   }
