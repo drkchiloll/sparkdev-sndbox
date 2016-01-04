@@ -18,18 +18,18 @@ export default class AuthAxxToken extends React.Component {
     var socket = IO('http://45.55.244.195:8080');
     socket.on('code', (code) => {
       fetch(`/axxtoken/${code}`, {
-	credentials: 'same-origin'
+	      credentials: 'same-origin'
       }).then((resp) => {
-	return resp.json()
+	      return resp.json()
       }).then((data) => {
-	var token = data.access_token;
-	fetch(`/sparkrooms/${token}`, {
-	  credentials: 'same-origin'
-	}).then((res) => {
-	  return res.json();
-	}).then((rooms) => {
-	  this.setState({rooms:rooms});
-	});
+      	var token = data.access_token;
+      	fetch(`/sparkrooms/${token}`, {
+      	  credentials: 'same-origin'
+      	}).then((res) => {
+      	  return res.json();
+      	}).then((rooms) => {
+      	  this.setState({rooms:rooms, token: token});
+      	});
       });
     });
   }
@@ -64,9 +64,9 @@ export default class AuthAxxToken extends React.Component {
               })}
             </select>
             <button
-	           className='btn btn-md btn-primary'
-	           onClick={this.getFiles}>
-	           Get Files
+	            className='btn btn-md btn-primary'
+	            onClick={this.getFiles}>
+	            Get Files
 	          </button>
           </div>
       	</div>
@@ -77,24 +77,24 @@ export default class AuthAxxToken extends React.Component {
     var files = this.state.files;
     return (
       <div className='row'>
-	<div className='col-sm-10'>
-	  <table className='table table-hover table-condensed'>
-	    <tr>
-	      <th>File Type</th>
-	      <th>File Name</th>
-	      <th>File Size</th>
-	    </tr>
-	    {files.map((file) => {
-	      return (
-		<tr>
-		  <td>{file.fileName.split('.')[1].toUpperCase()}</td>
-		  <td>{file.fileName}</td>
-		  <td>{file.blob.length}</td>
-		</tr>
-	      );
-	    })}
-	  </table>
-	</div>
+	     <div className='col-sm-10'>
+      	  <table className='table table-hover table-condensed'>
+      	    <tr>
+      	      <th>File Type</th>
+      	      <th>File Name</th>
+      	      <th>File Size</th>
+      	    </tr>
+      	    {files.map((file) => {
+      	      return (
+            		<tr>
+            		  <td>{file.fileName.split('.')[1].toUpperCase()}</td>
+            		  <td>{file.fileName}</td>
+            		  <td>{file.blob.length}</td>
+            		</tr>
+      	      );
+      	    })}
+      	  </table>
+      	</div>
       </div>
     );
   }
@@ -112,7 +112,8 @@ export default class AuthAxxToken extends React.Component {
     } else {
       roomId = this.state.selectedRoom.id;
     }
-    fetch(`/dlfiles/${roomId}`, {
+    var token = this.state.token;
+    fetch(`/dlfiles/${roomId}/${token}`, {
       credentials: 'same-origin'
     }).then((res) => {
       return res.json();

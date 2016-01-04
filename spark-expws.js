@@ -16,7 +16,7 @@ app
 app.get('/authorized', cntrler.getAuthorized)
 app.get('/axxtoken/:code', cntrler.getAccessToken);
 app.get('/sparkrooms/:token', cntrler.getSparkRooms);
-app.get('/dlfiles/:roomId', cntrler.getFiles);
+app.get('/dlfiles/:roomId/:token', cntrler.getFiles);
 
 var code;
 app.get('*', function(req, res) {
