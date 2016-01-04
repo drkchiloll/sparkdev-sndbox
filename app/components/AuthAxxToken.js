@@ -1,4 +1,5 @@
 import React from 'react';
+import IO from 'socket.io-client';
 
 export default class AuthAxxToken extends React.Component {
   constructor(props) {
@@ -13,21 +14,24 @@ export default class AuthAxxToken extends React.Component {
     this.getFiles = this.getFiles.bind(this);
   }
   componentWillMount() {
-    var code = this.props.location.query.code;
-    fetch(`/axxtoken/${code}`, {
-      credentials: 'same-origin'
-    }).then((resp) => {
-      return resp.json()
-    }).then((data) => {
-      var token = data.access_token;
-      fetch(`/sparkrooms/${token}`, {
-        credentials: 'same-origin'
-      }).then((res) => {
-        return res.json();
-      }).then((rooms) => {
-        this.setState({rooms:rooms});
+    //var code = this.props.location.query.code;
+    var socket = IO('http://45.55.244.195:8080');
+    socket.on('code', (code) => {
+      fetch(`/axxtoken/${code}`, {
+	credentials: 'same-origin'
+      }).then((resp) => {
+	return resp.json()
+      }).then((data) => {
+	var token = data.access_token;
+	fetch(`/sparkrooms/${token}`, {
+	  credentials: 'same-origin'
+	}).then((res) => {
+	  return res.json();
+	}).then((rooms) => {
+	  this.setState({rooms:rooms});
+	});
       });
-    })
+    });
   }
   render() {
     return (
