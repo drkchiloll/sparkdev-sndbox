@@ -83,13 +83,20 @@ export default class AuthAxxToken extends React.Component {
       	      <th>File Type</th>
       	      <th>File Name</th>
       	      <th>File Size</th>
+              <th>DL</th>
       	    </tr>
-      	    {files.map((file) => {
+      	    {files.map((file, idx) => {
       	      return (
             		<tr>
             		  <td>{file.fileName.split('.')[1].toUpperCase()}</td>
             		  <td>{file.fileName}</td>
             		  <td>{file.fileSize}</td>
+                  <td>
+                    <button
+                      className='btn btn-xs btn-primary'
+                      onClick={this.downloadFile(idx)}>
+                    </button>
+                  </td>
             		</tr>
       	      );
       	    })}
@@ -120,6 +127,16 @@ export default class AuthAxxToken extends React.Component {
     }).then((files) => {
       console.log(files);
       this.setState({files: files});
+    });
+  }
+  downloadFile(i) {
+    var file = this.state.files[i];
+    var token = this.state.token;
+    fetch(file.fileUri, {
+      credentials: 'same-origin',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
     });
   }
 }
