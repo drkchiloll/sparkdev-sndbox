@@ -89,7 +89,7 @@ export default class AuthAxxToken extends React.Component {
             		<tr>
             		  <td>{file.fileName.split('.')[1].toUpperCase()}</td>
             		  <td>{file.fileName}</td>
-            		  <td>{file.blob.length}</td>
+            		  <td>{file.fileSize}</td>
             		</tr>
       	      );
       	    })}
