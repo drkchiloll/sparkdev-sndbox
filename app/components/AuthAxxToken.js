@@ -1,5 +1,6 @@
 import React from 'react';
 import IO from 'socket.io-client';
+import path from 'path';
 
 export default class AuthAxxToken extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ export default class AuthAxxToken extends React.Component {
     // Needed because I'm using this.state in the FN
     this.handleRoomChange = this.handleRoomChange.bind(this);
     this.getFiles = this.getFiles.bind(this);
+    this.downloadFile = this.downloadFile.bind(this);
   }
   componentWillMount() {
     //var code = this.props.location.query.code;
@@ -88,14 +90,17 @@ export default class AuthAxxToken extends React.Component {
       	    {files.map((file, idx) => {
       	      return (
             		<tr>
-            		  <td>{file.fileName.split('.')[1].toUpperCase()}</td>
+            		  <td>{path.extname(file.fileName).toUpperCase().replace('.','')}</td>
             		  <td>{file.fileName}</td>
             		  <td>{file.fileSize}</td>
                   <td>
-                    <button
-                      className='btn btn-xs btn-primary'
-                      onClick={this.downloadFile(idx)}>
-                    </button>
+		    <a
+		      href={`/dlfile/${file.fileName}`}
+		      className='btn btn-primary btn-xs'
+		      download={file.fileName}
+		      onClick={this.downloadFile.bind(this, idx)}>
+		      Download File
+		    </a>
                   </td>
             		</tr>
       	      );
@@ -114,13 +119,16 @@ export default class AuthAxxToken extends React.Component {
   }
   getFiles() {
     var roomId;
+    if(this.state.files) {
+      this.setState({files: null});
+    }
     if(!this.state.selectedRoom) {
       roomId = this.state.rooms[0].id;
     } else {
       roomId = this.state.selectedRoom.id;
     }
     var token = this.state.token;
-    fetch(`/dlfiles/${roomId}/${token}`, {
+    fetch('/dlfiles/'+ roomId + '/' + token, {
       credentials: 'same-origin'
     }).then((res) => {
       return res.json();
@@ -131,12 +139,13 @@ export default class AuthAxxToken extends React.Component {
   }
   downloadFile(i) {
     var file = this.state.files[i];
-    var token = this.state.token;
-    fetch(file.fileUri, {
-      credentials: 'same-origin',
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
+    fetch('/savefile', {
+      credentials: 'included',
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({fileName: file.fileName, fileContents: file.blob})
+    }).then((resp) => {
+      return resp.text();
     });
   }
 }
