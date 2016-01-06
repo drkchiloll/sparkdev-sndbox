@@ -9,14 +9,18 @@ var cntrler = require('./lib/tokenCntrler');
 var app = express();
 
 app
-  .use(bodyParser.json())
+  .use(bodyParser.json({limit: '50mb'}))
   .use(bodyParser.urlencoded({extended: true}))
   .use(express.static('./build'))
+  .use(express.static('./files'))
 
 app.get('/authorized', cntrler.getAuthorized)
 app.get('/axxtoken/:code', cntrler.getAccessToken);
 app.get('/sparkrooms/:token', cntrler.getSparkRooms);
 app.get('/dlfiles/:roomId/:token', cntrler.getFiles);
+
+app.post('/savefile', cntrler.saveFile);
+app.get('/dlfile/:filename', cntrler.dlFile);
 
 var code;
 app.get('*', function(req, res) {
