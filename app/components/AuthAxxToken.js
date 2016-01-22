@@ -20,18 +20,18 @@ export default class AuthAxxToken extends React.Component {
     var socket = IO('http://45.55.244.195:8080');
     socket.on('code', (code) => {
       fetch(`/axxtoken/${code}`, {
-	      credentials: 'same-origin'
+        credentials: 'same-origin'
       }).then((resp) => {
-	      return resp.json()
+      return resp.json()
       }).then((data) => {
-      	var token = data.access_token;
-      	fetch(`/sparkrooms/${token}`, {
-      	  credentials: 'same-origin'
-      	}).then((res) => {
-      	  return res.json();
-      	}).then((rooms) => {
-      	  this.setState({rooms:rooms, token: token});
-      	});
+      var token = data.access_token;
+      fetch(`/sparkrooms/${token}`, {
+        credentials: 'same-origin'
+      }).then((res) => {
+        return res.json();
+      }).then((rooms) => {
+        this.setState({rooms:rooms, token: token});
+      });
       });
     });
   }
@@ -55,7 +55,7 @@ export default class AuthAxxToken extends React.Component {
     var rooms = this.state.rooms;
     return (
       <div className='row'>
-      	<div className='col-sm-6'>
+        <div className='col-sm-6'>
           <h4> Select a Room </h4>
           <div className='form-inline'>
             <select className='form-control' onChange={this.handleRoomChange}>
@@ -66,12 +66,12 @@ export default class AuthAxxToken extends React.Component {
               })}
             </select>
             <button
-	            className='btn btn-md btn-primary'
-	            onClick={this.getFiles}>
-	            Get Files
-	          </button>
+              className='btn btn-md btn-primary'
+              onClick={this.getFiles}>
+              Get Files
+            </button>
           </div>
-      	</div>
+        </div>
       </div>
     );
   }
@@ -79,34 +79,34 @@ export default class AuthAxxToken extends React.Component {
     var files = this.state.files;
     return (
       <div className='row'>
-	     <div className='col-sm-10'>
-      	  <table className='table table-hover table-condensed'>
-      	    <tr>
-      	      <th>File Type</th>
-      	      <th>File Name</th>
-      	      <th>File Size</th>
+        <div className='col-sm-10'>
+          <table className='table table-hover table-condensed'>
+            <tr>
+              <th>File Type</th>
+              <th>File Name</th>
+              <th>File Size</th>
               <th>DL</th>
-      	    </tr>
-      	    {files.map((file, idx) => {
-      	      return (
-            		<tr>
-            		  <td>{path.extname(file.fileName).toUpperCase().replace('.','')}</td>
-            		  <td>{file.fileName}</td>
-            		  <td>{file.fileSize}</td>
+            </tr>
+            {files.map((file, idx) => {
+              return (
+                <tr>
+                  <td>{path.extname(file.fileName).toUpperCase().replace('.','')}</td>
+                  <td>{file.fileName}</td>
+                  <td>{file.fileSize}</td>
                   <td>
-		    <a
-		      href={`/dlfile/${file.fileName}`}
-		      className='btn btn-primary btn-xs'
-		      download={file.fileName}
-		      onClick={this.downloadFile.bind(this, idx)}>
-		      Download File
-		    </a>
+                    <a
+                      href={`/dlfile/${file.fileName}`}
+                      className='btn btn-primary btn-xs'
+                      download={file.fileName}
+                      onClick={this.downloadFile.bind(this, idx)}>
+                      Download File
+                    </a>
                   </td>
-            		</tr>
-      	      );
-      	    })}
-      	  </table>
-      	</div>
+                </tr>
+              );
+            })}
+          </table>
+        </div>
       </div>
     );
   }
