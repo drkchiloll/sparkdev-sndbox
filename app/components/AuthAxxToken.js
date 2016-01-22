@@ -97,8 +97,7 @@ export default class AuthAxxToken extends React.Component {
                     <a
                       href={`/dlfile/${file.fileName}`}
                       className='btn btn-primary btn-xs'
-                      download={file.fileName}
-                      onClick={this.downloadFile.bind(this, idx)}>
+                      download={file.fileName}>
                       Download File
                     </a>
                   </td>
